@@ -22,8 +22,7 @@ val4 = st.slider("Serum Sodium", min_value = 100, max_value = 150, step = 1)
 
 if st.button("Predict"):
 
-    prediction = str(model.predict([[val1, val2, val3, val4]])[0])
+    prediction = (model.predict_proba([[val1, val2, val3, val4]])[:, 1])
+    prob= (prediction[0]*100).round(2)
 
-    pred_class = class_dict[prediction]
-
-    st.write("Prediction:", pred_class)
+    st.write("Prediction:", prob, "%" " of probability of having heart failure")
